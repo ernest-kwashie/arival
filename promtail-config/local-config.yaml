@@ -1,0 +1,12 @@
+client:
+  url: http://loki:3100/loki/api/v1/push
+
+positions:
+  filename: /tmp/positions.yaml
+
+scrape_configs:
+  - job_name: nodejs-app
+    static_configs:
+      - targets: ['nodejs-app:5001']
+        labels:
+          job: nodejs-app

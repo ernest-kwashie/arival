@@ -15,31 +15,25 @@ $ npm install
 $ npm start
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+Your app should now be running on [localhost:5001](http://localhost:5001/).
 
-## Deploying to Heroku
+### Using Dockerfile
+The base image for this application is built on node:14-slim. This eanbles us to have a ligtweight version of the application and to deploy faster and easier. Port 5001 was exposed, as our nodejs-app listens for traffic on that port. 
+![Dockerfile](images\Dockerfile.png)
 
-Using resources for this example app counts towards your usage. [Delete your app](https://devcenter.heroku.com/articles/heroku-cli-commands#heroku-apps-destroy) and [database](https://devcenter.heroku.com/articles/heroku-postgresql#removing-the-add-on) as soon as you are done experimenting to control costs.
+To build the Dockerfile, run command `docker build -t arvial .`
 
-By default, apps use Eco dynos if you are subscribed to Eco. Otherwise, it defaults to Basic dynos. The Eco dynos plan is shared across all Eco dynos in your account and is recommended if you plan on deploying many small apps to Heroku. Learn more about our low-cost plans [here](https://blog.heroku.com/new-low-cost-plans).
+### Using Docker-compose file
+This is a combination of both Loki, Grafana, and Promtail. To visualize with Grafana, there has to be some configurations that would enable our docker-compose file to be up. 
+![Loki-config](images\Loki-config.png)
 
-Eligible students can apply for platform credits through our new [Heroku for GitHub Students program](https://blog.heroku.com/github-student-developer-program).
+Our Promtail was used to scrape configs from our nodejs-app
+![Promtail-config](images\Promtail-config.png)
 
-```
-$ heroku create
-$ git push heroku main
-$ heroku open
-```
-or
+Overall, these processes enabled us to receive logs from our application, scraping the targets and visualizing it with Grafana. To use the docker-compose file, you simply run command: `docker-compose up -d`
+![Docker-compose](images\Docker-compose.png)
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+### Number to Word
+For this, I wrote a Python script that prints the numbers from 0 to 100, converting every tenth number to a wordy version
+![numbers-word](images\numbers-word.png)
+The script will print numbers from 0 to 100, converting every tenth number (e.g., 10, 20, 30, ..., 100) to its wordy version. For other numbers, it will print the number as is.

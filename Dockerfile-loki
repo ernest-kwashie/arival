@@ -1,0 +1,4 @@
+FROM grafana/loki:latest
+USER root
+RUN mkdir /wal && chmod 777 /wal
+USER nobody
